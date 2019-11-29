@@ -138,7 +138,7 @@ create_config(Token)
 
 end 
 
-local url , res = https.request('https://ibuser.ubuser.xyz/Rambov2/?User='..SUDO_USER)
+local url , res = https.request('https://ibuser.ibuser.xyz/Rambov2/?User='..SUDO_USER)
 
 if res ~= 200 then
 
