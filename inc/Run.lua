@@ -114,7 +114,7 @@ create_config(Token)
 
 end 
 
-local url , res = https.request('https://rami-api.000webhostapp.com/Rambov2/?User='..SUDO_USER)
+local url , res = https.request('https://insta-r.000webhostapp.com/Rambov2/?User='..SUDO_USER)
 
 if res ~= 200 then
 
