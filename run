@@ -1,0 +1,121 @@
+#!/bin/bash 
+
+#  ▄█    █▄     ▄████████    ▄████████    ▄████████  Channel : @RamboCli 
+#  ███    ███   ███    ███   ███    ███   ███    ███ 
+#  ███    ███   ███    █▀    ███    █▀    ███    ███ 
+#  ███    ███  ▄███▄▄▄      ▄███▄▄▄      ▄███▄▄▄▄██▀  Bot : @RamboCliBot
+#  ███    ███ ▀▀███▀▀▀     ▀▀███▀▀▀     ▀▀███▀▀▀▀▀   
+#  ███    ███   ███    █▄    ███    █▄  ▀███████████ Dev : @RSAIED and @YYBYY
+#  ███    ███   ███    ███   ███    ███   ███    ███ 
+#  ▀██████▀    ██████████   ██████████   ███    ███  By Source Rambo
+#---------------------------------------------------------------------
+cd $(cd $(dirname $0); pwd)
+ 
+RED='\033[0;31m'
+SMAY='\033[0;36m' 
+GREEN='\033[0;32m'
+Yellow='\033[0;33m'
+LSAMAY='\033[01;49m'
+WHITB='\033[01;90m'
+WHITEC='\033[01;91m'
+CNIL='\033[0m'
+Version=`lsb_release -rs | cut -f1 -d"."`
+
+if [ "$Version" == "18" ];then
+echo -e "${GREEN}
+  ▄█    █▄     ▄████████    ▄████████    ▄████████  Channel : @RamboCli 
+  ███    ███   ███    ███   ███    ███   ███    ███ 
+  ███    ███   ███    █▀    ███    █▀    ███    ███ 
+  ███    ███  ▄███▄▄▄      ▄███▄▄▄      ▄███▄▄▄▄██▀  Bot : @RamboCliBot
+  ███    ███ ▀▀███▀▀▀     ▀▀███▀▀▀     ▀▀███▀▀▀▀▀   
+  ███    ███   ███    █▄    ███    █▄  ▀███████████ Dev : @RSAIED and @YYBYY
+  ███    ███   ███    ███   ███    ███   ███    ███ 
+  ▀██████▀    ██████████   ██████████   ███    ███  By Source Rambo
+ ---------------------------------------------------------------------${CNIL}"
+echo -e "${RED}| للاسف لايمكنك تنصيب السورس ع نظام اوبنتو {${Version}} يجب ان يكون على اصدار  اقل مثلا  ${SMAY}14 او 16
+${CNIL}";
+echo -e "${RED}| Sorry Canot install Source on Ubuntu {${Version}} Please install system To Ubuntu ${SMAY}14 or 16 ${RED} For Run The Source Rambo 
+${CNIL}";
+exit;
+fi
+
+CPUPer=`top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}' | cut -f1 -d"."`
+if [[ $CPUPer -gt 90 ]]; then
+echo -e "${SMAY}\n"
+echo -e " ▄█    █▄     ▄████████    ▄████████    ▄████████  Channel : @RamboCli 
+echo -e " ███    ███   ███    ███   ███    ███   ███    ███ 
+echo -e " ███    ███   ███    █▀    ███    █▀    ███    ███ 
+echo -e " ███    ███  ▄███▄▄▄      ▄███▄▄▄      ▄███▄▄▄▄██▀  Bot : @RamboCliBot
+echo -e " ███    ███ ▀▀███▀▀▀     ▀▀███▀▀▀     ▀▀███▀▀▀▀▀   
+echo -e " ███    ███   ███    █▄    ███    █▄  ▀███████████ Dev : @RSAIED and @YYBYY
+echo -e " ███    ███   ███    ███   ███    ███   ███    ███ 
+echo -e " ▀██████▀    ██████████   ██████████   ███    ███  By Source Rambo
+echo -e " ---------------------------------------------------------------------"
+echo -e "${CNIL}"
+echo -e "${RED}
+¦
+¦ CAUTION:${WHITB} Cpu is load full > 90% .
+¦ Please clean your Work in ${Yellow}You Server ${WHITB}And Run Again${SMAY} Source RAMBO${CNIL} . \n
+\n\n"
+exit;
+fi
+
+if [ ! -f "./TG" ]; then
+echo -e "${RED}
+¦
+¦ CAUTION:${WHITB} Your Not Dwonload TG .
+¦ NOW I Run File ${Yellow}./run${WHITB} To install ${SMAY}Source RAMBO${CNIL} . \n
+\n\n"
+chmod +x ./ins
+./ins
+exit;
+fi
+
+if [ ! -f "./inc/Token.txt" ]; then
+echo -e "${RED}
+¦
+¦ CAUTION:${WHITB} Your Token Bot Not Found .
+¦ NOW I Run File ${SMAY}./RUN.lua${WHITB} To Enter Data For You Bot${CNIL}. \n
+\n\n"
+lua ./inc/Run.lua
+exit;
+else
+TOKEN=`cat ./inc/Token.txt`
+BOTID=`echo $TOKEN | cut -f1 -d":"`
+Check=`redis-cli ping`
+if [[ $Check == "" ]]; then
+echo -e "${RED}
+¦ CAUTION:${WHITB} Rides is Not Working .
+¦ Please Run Redis From This Command ${SMAY}service redis-server start${WHITB} . \n
+\n\n"
+exit;
+fi
+
+Sudo=`redis-cli get ${BOTID}:SUDO_ID:`
+if [[ $Sudo == "" ]]; then
+echo "sudo is empty"
+rm -fr ./inc/Token.txt
+lua ./inc/Run.lua
+exit;
+fi
+
+fi
+
+
+chmod +x ./TG  
+
+if [ "$1" == "R" ]; then
+while true; do
+sleep 1s
+sudo rm -fr ~/.telegram-cli
+./TG -s ./inc/Run.lua --bot=$TOKEN
+done
+else 
+BOTIDS=`echo $TOKEN | cut -f1 -d":"`
+if ! screen -list | grep -q "rambo_$BOTIDS"; then
+screen -S rambo_$BOTIDS ./run R
+else
+screen -X -S rambo_$BOTIDS quit
+screen -S rambo_$BOTIDS ./run R
+fi
+fi
