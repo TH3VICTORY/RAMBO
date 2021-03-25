@@ -81,7 +81,7 @@ end
 local DirFol = io.popen("echo $(cd $(dirname $0); pwd)"):read('*all'):gsub(' ',''):gsub("\n",'')
 user = {}
 user.username = SUDO_USER
-user.Source  = "/root/RAMBO"
+user.Source  = DirFol
 local url , res = https.request('https://Faeder-bot.cf/source/?User='..SUDO_USER)
 if res ~= 200 then
 print('\n\27[1;31m￤ Conect is Failed !\n￤ حدث خطـآ في آلآتصـآل بآلسـيرفر , يرجى مـرآسـلهہ‏‏ مـطـور آلسـورس ليتمـگن مـن حل آلمـشـگلهہ‏‏ في آسـرع وقت مـمـگن . !')
